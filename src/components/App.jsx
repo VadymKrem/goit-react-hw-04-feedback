@@ -12,21 +12,20 @@ export class App extends Component{
     bad: 0
   }
 
-onLeaveFeedback = ({ target: { name } }) => {
+onLeaveFeedback = (option ) => {
     this.setState(prevState => ({
-      [name]: prevState[name] + 1,
+      [option]: prevState[option] + 1,
     }));
   };
 
-countTotalFeedback = () => {
-    const total = this.state.good + this.state.neutral + this.state.bad;
-    return total;
-  }
+  countTotalFeedback = () => {
+  return Object.values(this.state).reduce((total, curr) => (total += curr));
+  };
 
 countPositiveFeedbackPercentage = () => {
-    let goodFeedback = this.state.good;
+    const { good } = this.state;
     let totalFeedbak = this.countTotalFeedback();
-    return Math.round((goodFeedback / totalFeedbak)*100);
+    return Math.round((good / totalFeedbak)*100);
   }
 
 render() {
